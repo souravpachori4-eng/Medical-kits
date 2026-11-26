@@ -13,9 +13,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 load_dotenv(BASE_DIR / '.env')
-DB_PATH = BASE_DIR / os.getenv('DATABASE_PATH', 'meddata.db')
-UPLOAD_DIR = BASE_DIR / 'private_uploads'  # never expose this directory as static content
-UPLOAD_DIR.mkdir(exist_ok=True)
+DB_PATH = Path(os.getenv(
+    'DATABASE_PATH',
+    str(BASE_DIR / 'meddata.db')
+))
+
+UPLOAD_DIR = Path(os.getenv(
+    'UPLOAD_DIR',
+    str(BASE_DIR / 'private_uploads')
+))
+
+DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 ALLOWED_EXTENSIONS = {'csv', 'xlsx', 'xls'}
 MAX_UPLOAD_MB = int(os.getenv('MAX_UPLOAD_MB', '20'))
 
