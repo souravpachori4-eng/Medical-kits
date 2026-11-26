@@ -20,7 +20,12 @@ ALLOWED_EXTENSIONS = {'csv', 'xlsx', 'xls'}
 MAX_UPLOAD_MB = int(os.getenv('MAX_UPLOAD_MB', '20'))
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'replace-this-secret-before-deployment')
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY is missing from environment variables")
+
+app.secret_key = SECRET_KEY
 app.config['MAX_CONTENT_LENGTH'] = MAX_UPLOAD_MB * 1024 * 1024
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
@@ -31,8 +36,12 @@ ANALYSIS_PRICE_INR = 15
 
 @contextmanager
 def db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+conn = sqlite3.connect(DB_PATH, timeout=30)
+conn.row_factory = sqlite3.Row
+conn.execute("PRAGMA foreign_keys = ON")
+conn.execute("PRAGMA busy_timeout = 30000")
     try:
         yield conn
         conn.commit()
@@ -192,8 +201,12 @@ def register():
     if request.method == 'POST':
         email = request.form.get('email', '').strip().lower()
         password = request.form.get('password', '')
+        confirm_password = request.form.get('confirm_password', '')
         if not email or len(password) < 8:
-            flash('Enter a valid email and a password of at least 8 characters.', 'error')
+    flash('Enter a valid email and a password of at least 8 characters.', 'error')
+
+elif password != confirm_password:
+    flash('Passwords do not match.', 'error')
         else:
             try:
                 with db() as conn:
@@ -475,10 +488,16 @@ def health():
     return {'status': 'ok'}
 
 
+# Initialize database
+init_db()
 
 if __name__ == '__main__':
-    init_db()
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)), debug=os.getenv('FLASK_DEBUG', '0') == '1')
+    app.run(
+        host='0.0.0.0',
+        port=int(os.getenv('PORT', 5000)),
+        debug=os.getenv('FLASK_DEBUG', '0') == '1'
+    )
+
 
 # Initialize schema for both local runs and WSGI deployments (e.g. Gunicorn).
 init_db()
