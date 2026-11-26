@@ -1,0 +1,72 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Admin Dashboard</h1>
+        <p>MedData Analytics — Administration Panel</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="card">
+            <h3>Total Users</h3>
+            <h2>{{ total_users|default(0) }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Projects</h3>
+            <h2>{{ total_projects|default(0) }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Datasets</h3>
+            <h2>{{ total_datasets|default(0) }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Revenue</h3>
+            <h2>₹{{ total_revenue|default(0) }}</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Registered Users</h2>
+
+        {% if users %}
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Email</th>
+                        <th>Analyses Used</th>
+                        <th>Paid Credits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.analyses_used }}</td>
+                        <td>{{ user.paid_credits }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No users found.</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>Admin Privacy</h2>
+        <p>Only authorized administrators should access this page.</p>
+        <p>Keep uploaded research data secure and protect patient privacy.</p>
+    </div>
+
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</div>
+{% endblock %}
