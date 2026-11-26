@@ -1,0 +1,84 @@
+
+{% extends "base.html" %}
+{% block title %}{{ 'Create Account' if mode == 'register' else 'Log In' }} | MedData Analytics{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            <div class="brand-mark">✚</div>
+            <h1>
+                {{ 'Create your account' if mode == 'register' else 'Welcome back' }}
+            </h1>
+            <p>
+                {{ 'Start your healthcare research workspace today.' if mode == 'register' else 'Log in to continue your research.' }}
+            </p>
+        </div>
+
+        <form method="POST" class="auth-form">
+
+            <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+
+            <label for="email">Email address</label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+            >
+
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}"
+                minlength="{{ 8 if mode == 'register' else 1 }}"
+                required
+            >
+
+            {% if mode == 'register' %}
+            <p class="form-hint">
+                Password must contain at least 8 characters.
+            </p>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary btn-full">
+                {{ 'Create Account' if mode == 'register' else 'Log In' }}
+            </button>
+
+        </form>
+
+        <div class="auth-switch">
+
+            {% if mode == 'register' %}
+
+                Already have an account?
+                <a href="{{ url_for('login') }}">Log in</a>
+
+            {% else %}
+
+                Don't have an account?
+                <a href="{{ url_for('register') }}">Create account</a>
+
+            {% endif %}
+
+        </div>
+
+        <div class="auth-security">
+            🔒 Your research workspace is protected by account access.
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
