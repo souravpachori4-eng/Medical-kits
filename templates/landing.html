@@ -1,0 +1,233 @@
+
+{% extends "base.html" %}
+{% block title %}MedData Analytics | Healthcare Research{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <span class="eyebrow">
+            HEALTHCARE RESEARCH ANALYTICS
+        </span>
+
+        <h1>
+            Turn medical data into
+            <span class="gradient-text">research insights.</span>
+        </h1>
+
+        <p class="hero-description">
+            An easier way for medical students, researchers, and healthcare
+            professionals to explore datasets, perform statistical analysis,
+            visualize findings, and prepare research reports.
+        </p>
+
+        <div class="hero-actions">
+
+            <a class="btn btn-primary"
+               href="{{ url_for('register') }}">
+                Get Started Free →
+            </a>
+
+            <a class="btn btn-secondary"
+               href="{{ url_for('login') }}">
+                Log In
+            </a>
+
+        </div>
+
+        <div class="hero-note">
+            <span class="status-dot"></span>
+            Two free analyses to get started
+        </div>
+
+    </div>
+
+    <div class="hero-visual">
+
+        <div class="visual-card">
+
+            <div class="visual-card-header">
+                <div>
+                    <span class="muted-label">RESEARCH OVERVIEW</span>
+                    <h3>Dataset insights</h3>
+                </div>
+                <span class="card-icon">✚</span>
+            </div>
+
+            <div class="mini-stats">
+
+                <div class="mini-stat">
+                    <span>Patients</span>
+                    <strong>Dataset</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <span>Variables</span>
+                    <strong>Analysis</strong>
+                </div>
+
+            </div>
+
+            <div class="chart-placeholder">
+
+                <div class="chart-label">
+                    <span>Data distribution</span>
+                    <span>Sample preview</span>
+                </div>
+
+                <div class="chart-bars">
+                    <div style="height:35%"></div>
+                    <div style="height:55%"></div>
+                    <div style="height:43%"></div>
+                    <div style="height:78%"></div>
+                    <div style="height:63%"></div>
+                    <div style="height:92%"></div>
+                    <div style="height:50%"></div>
+                    <div style="height:72%"></div>
+                </div>
+
+            </div>
+
+            <div class="insight-box">
+                <span class="insight-icon">✦</span>
+                <div>
+                    <strong>Research workflow</strong>
+                    <p>Upload · Analyze · Visualize · Report</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <span class="eyebrow">POWERFUL RESEARCH TOOLS</span>
+
+        <h2>Everything you need to explore your data</h2>
+
+        <p>
+            From your first dataset to research-ready statistical results,
+            everything is organized in one workspace.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-icon blue">▤</div>
+            <h3>Research Workspace</h3>
+            <p>
+                Organize studies, create projects, and upload CSV or Excel
+                datasets in one place.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon purple">∑</div>
+            <h3>Statistical Analysis</h3>
+            <p>
+                Explore descriptive statistics, missing values, correlations,
+                and essential statistical summaries.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon teal">▥</div>
+            <h3>Data Visualization</h3>
+            <p>
+                Understand your research data through clear graphs,
+                distributions, and interactive visualizations.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon orange">▧</div>
+            <h3>Research Reports</h3>
+            <p>
+                Prepare analysis outputs and download results to support
+                your research workflow.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="workflow-section">
+
+    <div class="section-heading">
+
+        <span class="eyebrow">SIMPLE WORKFLOW</span>
+
+        <h2>From raw data to meaningful results</h2>
+
+    </div>
+
+    <div class="workflow-grid">
+
+        <div class="workflow-step">
+            <span class="step-number">01</span>
+            <h3>Upload</h3>
+            <p>Upload your CSV or Excel research dataset.</p>
+        </div>
+
+        <div class="workflow-step">
+            <span class="step-number">02</span>
+            <h3>Explore</h3>
+            <p>Review columns, data quality, and variables.</p>
+        </div>
+
+        <div class="workflow-step">
+            <span class="step-number">03</span>
+            <h3>Analyze</h3>
+            <p>Generate statistics and visualizations.</p>
+        </div>
+
+        <div class="workflow-step">
+            <span class="step-number">04</span>
+            <h3>Export</h3>
+            <p>Download your results for further research.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="cta-section">
+
+    <span class="eyebrow">START YOUR RESEARCH</span>
+
+    <h2>Your data deserves better than spreadsheets alone.</h2>
+
+    <p>
+        Start exploring healthcare research data with MedData Analytics.
+    </p>
+
+    <a class="btn btn-primary"
+       href="{{ url_for('register') }}">
+        Create Your Free Account →
+    </a>
+
+</section>
+
+
+<section class="disclaimer">
+    <strong>Research use only.</strong>
+    MedData Analytics is designed to support data exploration and
+    research workflows. It is not intended to provide medical diagnoses
+    or replace professional clinical judgment.
+</section>
+
+{% endblock %}
