@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Dataset Details</h1>
+        <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+    </div>
+
+    <div class="card">
+        <h2>{{ dataset.original_name }}</h2>
+        <p><strong>Project:</strong> {{ dataset.project_title }}</p>
+        <p><strong>Rows:</strong> {{ dataset.row_count }}</p>
+        <p><strong>Columns:</strong> {{ dataset.col_count }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Research Dataset</h2>
+        <p>Your dataset has been uploaded successfully.</p>
+        <p>Use the analytics tools to explore your research data.</p>
+    </div>
+
+    <div class="card">
+        <h2>Privacy Notice</h2>
+        <p>Uploaded data should only be accessible to authorized users.</p>
+        <p>Do not upload identifiable patient information unless you have the required permissions and safeguards.</p>
+    </div>
+</div>
+{% endblock %}
