@@ -1,0 +1,144 @@
+
+{% extends "base.html" %}
+{% block title %}{{ project['title'] }} | MedData Analytics{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <a href="{{ url_for('dashboard') }}" class="text-link">
+        ← Back to Dashboard
+    </a>
+
+    <span class="eyebrow">RESEARCH PROJECT</span>
+    <h1>{{ project['title'] }}</h1>
+
+    <p>{{ project['description'] or 'Explore and analyze your research data.' }}</p>
+</div>
+
+
+<section class="project-overview">
+
+    <div class="stat-card">
+        <span class="stat-label">Uploaded datasets</span>
+        <strong>{{ datasets | length }}</strong>
+        <small>Files in this project</small>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-label">Project status</span>
+        <strong>Active</strong>
+        <small>Research workspace</small>
+    </div>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="panel-heading">
+        <div>
+            <span class="eyebrow">DATA MANAGEMENT</span>
+            <h2>Upload Research Dataset</h2>
+        </div>
+    </div>
+
+    <form method="POST"
+          action="{{ url_for('upload_dataset', project_id=project['id']) }}"
+          enctype="multipart/form-data"
+          class="upload-form">
+
+        <input type="hidden" name="_csrf"
+               value="{{ csrf_token() }}">
+
+        <label for="dataset">
+            Select CSV or Excel file
+        </label>
+
+        <input
+            type="file"
+            name="dataset"
+            id="dataset"
+            accept=".csv,.xlsx,.xls"
+            required
+        >
+
+        <p class="form-hint">
+            Supported formats: CSV, XLSX, XLS.
+        </p>
+
+        <button type="submit" class="btn btn-primary">
+            Upload Dataset →
+        </button>
+
+    </form>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="panel-heading">
+        <div>
+            <span class="eyebrow">YOUR RESEARCH DATA</span>
+            <h2>Uploaded Datasets</h2>
+        </div>
+    </div>
+
+    {% if datasets %}
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Dataset</th>
+                    <th>Rows</th>
+                    <th>Columns</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for dataset in datasets %}
+
+                <tr>
+                    <td>
+                        <strong>{{ dataset['original_name'] }}</strong>
+                    </td>
+
+                    <td>{{ dataset['row_count'] }}</td>
+
+                    <td>{{ dataset['col_count'] }}</td>
+
+                    <td>
+                        <a class="text-link"
+                           href="{{ url_for('dataset', dataset_id=dataset['id']) }}">
+                            Analyze →
+                        </a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <div class="empty-icon">▤</div>
+        <h3>No datasets uploaded</h3>
+        <p>Upload your first research dataset to begin.</p>
+    </div>
+
+    {% endif %}
+
+</section>
+
+<div class="disclaimer">
+    Do not upload identifiable patient information unless you have
+    appropriate authorization and safeguards.
+</div>
+
+{% endblock %}
