@@ -213,10 +213,9 @@ def register():
         password = request.form.get('password', '')
         confirm_password = request.form.get('confirm_password', '')
         if not email or len(password) < 8:
-    flash('Enter a valid email and a password of at least 8 characters.', 'error')
-
-elif password != confirm_password:
-    flash('Passwords do not match.', 'error')
+            flash('Enter a valid email and a password of at least 8 characters.', 'error')
+        elif password != confirm_password:
+            flash('Passwords do not match.', 'error')
         else:
             try:
                 with db() as conn:
@@ -227,6 +226,7 @@ elif password != confirm_password:
             except sqlite3.IntegrityError:
                 flash('That email is already registered.', 'error')
     return render_template('auth.html', mode='register')
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
