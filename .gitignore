@@ -1,0 +1,24 @@
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+.python-version
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploaded private data
+private_uploads/
+uploads/
+
+# Temporary files
+*.log
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
